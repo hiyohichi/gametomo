@@ -1,10 +1,6 @@
 Rails.application.routes.draw do
-  namespace :user do
-    get 'homes/top'
-  end
-  #devise_for :admins
-  #devise_for :users
-  # 顧客用
+  
+# 顧客用
 # URL /users/sign_in ...
 devise_for :users,skip: [:passwords], controllers: {
   registrations: "user/registrations",
@@ -16,5 +12,21 @@ devise_for :users,skip: [:passwords], controllers: {
 devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
   sessions: "admin/sessions"
 }
+  scope module: :user do
+    root to: 'homes#top'
+    resources :users
+    resources :games
+    resources :messages
+    resources :rooms
+    
+  end
+  
+  namespace :admin do
+    get "/" => "homes#top"
+    resources :users, only: [:index,:show,:edit,:update]
+    resources :games, only: [:index,:new,:create,:show,:edit,:update]
+    resources :genres,only: [:index,:create,:edit,:update] 
+
+  end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
