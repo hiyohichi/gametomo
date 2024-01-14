@@ -1,2 +1,20 @@
-<h1>User::Homes#top</h1>
-<p>Find me in app/views/user/homes/top.html.erb</p>
+<div class="container">
+  <div class="row">
+    <div class="mx-auto col-11 col-sm-10 col-lg-8 col-cl-6">
+      <h1>ゲムトモ</h1>
+      <p>ゲーム仲間を探そう！</p>
+      <div class="btn-wrapper col-10 mx-auto">
+        <div class="row">
+          <%= link_to new_user_session_path, class: 'btn btn-info btn-sm btn-block mb-3' do %>
+          Log in
+          <%end%>
+        </div>
+        <div class="row">
+          <%= link_to new_user_registration_path, class: 'btn btn-success btn-sm btn-block mb-3' do %>
+          Sign up
+          <%end%>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

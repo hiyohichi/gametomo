@@ -6,11 +6,98 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+    <!--FontAwesomeの導入-->
+    <script src="https://kit.fontawesome.com/c6b38ceb92.js" crossorigin="anonymous"></script>
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+          <a class="navbar-brand p-3" href="/">
+            <span>Gametomo</span>
+          </a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+                       aria-controls="navbarNavDropdown" aria-expanded="true" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="navbar-collapse collapse " id="navbarNavDropdown" >
+            <ul class="navbar-nav ml-auto">
+            <% if user_signed_in? %>
+              <li>
+                <%= link_to user_path(current_user.id), class: 'nav-link text-light' do %>
+                  <i class="fas fa-home"></i>Home
+                <% end %>
+              </li>
+              <li>
+                <%= link_to users_path, class: 'nav-link text-light' do %>
+                  <i class="fas fa-users"></i>Users
+                <% end %>
+              </li>
+              <li>
+                <%= link_to games_path, class: 'nav-link text-light' do %>
+                  <i class="fa-solid fa-gamepad"></i>Games
+                <% end %>
+              </li>
+              <li>
+                <%= link_to destroy_user_session_path,method: :delete, class: 'nav-link text-light' do %>
+                  <i class="fas fa-sign-out-alt"></i>Log out
+                <% end %>
+              </li>
+
+            <!--管理者ログイン後-->
+            <% elsif admin_signed_in? %>
+              <li>
+                <%= link_to admin_games_path, class:"nav-link text-light" do %>
+                  <i class="fa-solid fa-gamepad"></i>Games
+                <% end %>
+              </li>
+              <li>
+                <%=link_to admin_users_path, class: 'nav-link text-light' do %>
+                  <i class="fas fa-users"></i>Users
+                <% end %>
+              </li>
+              <li>
+                <%= link_to admin_genres_path, class:"nav-link text-light" do %>
+                  <i class="fa-solid fa-layer-group"></i>Pratform
+                <% end %>
+              </li>
+              <li>
+                <%= link_to destroy_admin_session_path, method: :delete, class:"nav-link text-light" do %>
+                  <i class="fa-solid fa-sign-out-alt"></i>Log out
+                <% end %>
+              </li>
+
+            <% else %>
+              <li>
+                <%= link_to root_path, class: 'nav-link text-light' do %>
+                <i class="fas fa-home"></i>Home
+                <% end %>
+              </li>
+              <li>
+                <%= link_to new_user_registration_path, class: 'nav-link text-light' do %>
+                <i class="fas fa-user-plus"></i>Sign up
+                <% end %>
+              </li>
+              <li>
+                <%= link_to new_user_session_path, class: 'nav-link text-light' do %>
+                <i class="fas fa-sign-in-alt"></i>Log in
+                <% end %>
+              </li>
+            <% end %>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <main>
+      <!--フラッシュメッセージ-->
+      <div id="notice">
+        <%= flash[:notice] %>
+      </div>
     <%= yield %>
   </body>
 </html>

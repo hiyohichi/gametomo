@@ -35,3 +35,6 @@
 ## 使用素材
 - フリーイラストとして以下を使用
   - Pixabay(https://pixabay.com/ja)
+- アイコンとして以下を使用
+  - FontAwesome(https://fontawesome.com/)
+  - Flat Icon Design(http://flat-icon-design.com/)
