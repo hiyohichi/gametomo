@@ -20,8 +20,17 @@ devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
   
   scope module: :user do
     root to: 'homes#top'
-    resources :users
-    resources :games
+    resources :users,only: [:index,:show,:edit,:update,:create] do
+      resource :relationships, only: [:create, :destroy]
+      get 'followings' => 'relationships#followings', as: 'followings'
+      get 'followers' => 'relationships#followers', as: 'followers'
+    end
+
+    resources :games do
+      resources :comments,only: [:create,:destroy] do
+        resource :favorites,only: [:create,:destroy]
+      end
+    end
     resources :messages
     resources :rooms
     
