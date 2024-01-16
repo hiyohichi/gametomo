@@ -1,0 +1,60 @@
+<div class="container">
+  <div class="row">
+    <h3>ゲーム新規登録</h3>
+  </div>
+  <div class="row">
+   <div class="col-3" >
+    </div>
+    <div class="col-6">
+      <%= form_with model:@game,url:admin_games_path do |f| %>
+        <table>
+          <tbody>
+              <tr>
+                <td>イメージ画像</td>
+                <td>
+              　  <%= f.file_field :image, accept: "image/*" %>
+                </td>
+              </tr>
+              <tr>
+                <td>タイトル</td>
+                <td>
+                  <%= f.text_field :title, rows:'3', placeholder: "タイトル" %>
+                </td>
+              </tr>
+              <tr>
+                <td>紹介文</td>
+                <td>
+              　    <%= f.text_area :introduction, rows:'6', placeholder: "説明文"  %>
+                </td>
+              </tr>
+              <tr>
+                <td>プラットフォーム</td>
+                <td>
+                  <% @genres.each do |genre| %>
+                    <%= f.check_box :pratform,
+                                    { multiple: true,
+                                      checked: @game.genre.present? ? @game.genre.split(",").include?(genre) : false },
+                                      genre, nil %>
+            　　      <%= f.label genre.pratform %><br>
+                  <% end %>
+                </td>
+              </tr>
+              <tr>
+                <td>ステータス</td>
+                <td>
+                  <%= f.radio_button :is_active, :true %>起動中
+                  <%= f.radio_button :is_active, :false %>停止中
+                </td>
+              </tr>
+              <tr>
+                <td>
+                <%= f.submit '新規登録',class: "btn btn-success" %>
+                </td>
+              </tr>
+          </tbody>
+        </table>
+        <% end %>
+      </div>
+    <div class="col-3"></div>
+  </div>
+</div>

@@ -28,6 +28,11 @@ class User < ApplicationRecord
     end
     profile_image.variant(resize_to_limit: [width,height]).processed
   end
+  
+  #退会ユーザーへのログイン制限
+  def active_for_authentication?
+    super && (self.is_active == true)
+  end
 
   #フォロー機能
   def follow(user_id)

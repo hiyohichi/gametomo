@@ -1,0 +1,12 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h4 class="m-5">プラットフォーム編集</h4>
+      <%= form_with model: @genre, url: admin_genre_path(@genre), method: :patch do |f| %>
+      <td>プラットフォーム名</td>
+      <td><%= f.text_field :pratform %></td>
+      <td><%= f.submit "変更を保存", class:"btn btn-success" %></td>
+      <%end%>
+    </div>
+  </div>
+</div>

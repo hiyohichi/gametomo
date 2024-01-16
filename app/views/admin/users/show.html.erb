@@ -1,0 +1,63 @@
+<div class="container px-5 px-sm-0">
+  <div class="row">
+    <div class="col-md-3">
+      <h2>User info</h2>
+      <div>
+        <%= image_tag @user.get_profile_image(100,100) %>
+      </div>
+      <table>
+        <tr>
+          <th>name</th>
+          <th><%= @user.name %></th>
+        </tr>
+        <tr>
+          <th>introduction</th>
+          <th><%= @user.introduction %></th>
+        </tr>
+        <tr>
+          <th>follows</th>
+          <th><%= @user.followings.count %></th>
+        </tr>
+        <tr>
+          <th>followers</th>
+          <th><%= @user.followers.count %></th>
+        </tr>
+        <%= form_with model:@user,url:admin_user_path, method: :patch do |f| %>
+        <tr>
+          <td>ステータス</td>
+          <td>
+            <p><%= f.radio_button :is_active, :true %>有効</p>
+            <p><%= f.radio_button :is_active, :false %>退会</p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+          <%= f.submit "変更を保存",class: "btn btn-warning" %>
+          </td>
+        </tr>
+        <% end %>
+      </table>
+    </div>
+  </div>
+
+    <div class="col-md-8 offset-md-1">
+      <h2>投稿</h2>
+      <table>
+        <tbody>
+          <% user.comments.each do |comment| %>
+          <tr>
+            <td>
+              <%= image_tag comment.user.get_profile_image(50,50) %><br>
+              <%= comment.user.name %>
+            </td>
+            <td><%= comment.comment %></td>
+            <td>
+              <%= link_to "Destroy", game_comment_path(game, game_comment), method: :delete,"data-confirm"=>"本当に消しますか？", class:"btn btn-sm btn-danger",remote: true %>
+            </td>
+          </tr>
+          <%end%>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
