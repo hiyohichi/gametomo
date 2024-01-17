@@ -9,7 +9,7 @@ class Admin::GamesController < ApplicationController
   def create
     @game = Game.new(game_params)
     params[:game][:genre] ? @game.genre = params[:game][:genre].join(",") : false
-    if @game.save
+    if @game.save!
       redirect_to admin_games_path
     else
       @genres = Genre.all
@@ -44,6 +44,6 @@ class Admin::GamesController < ApplicationController
   private
 
   def game_params
-    params.require(:game).permit(:title, :introduction, :genre_id, :game_image)
+    params.require(:game).permit(:title, :introduction, :game_image, :is_active, genre_ids:[])
   end
 end

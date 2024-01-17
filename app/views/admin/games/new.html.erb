@@ -31,10 +31,10 @@
                 <td>プラットフォーム</td>
                 <td>
                   <% @genres.each do |genre| %>
-                    <%= f.check_box :pratform,
+                    <%= f.check_box :genre_ids,
                                     { multiple: true,
-                                      checked: @game.genre.present? ? @game.genre.split(",").include?(genre) : false },
-                                      genre, nil %>
+                                      checked: @game.genres.present? ? @game.genres.split(",").include?(genre) : false },
+                                      genre.id, nil %>
             　　      <%= f.label genre.pratform %><br>
                   <% end %>
                 </td>

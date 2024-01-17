@@ -24,9 +24,13 @@
           <% @games.each do |game| %>
           <tr>
             <td><%= image_tag game.get_game_image(80,80) %></td>
-            <td><%= link_to game.title,admin_game_path(item.id) %></td>
-            <td><%= game.genre.name %></td>
-            <td><%= game.commens.count %></td>
+            <td><%= link_to game.title,admin_game_path(game.id) %></td>
+            <td><% game.genres.each do |genre|%>
+                <%= genre.pratform %>
+                <% end %></td>
+            <td><% game.comments.each do |comment| %>
+                <%= comments.count %>
+                <% end %></td>
             <td><span style="color:green;"><%= game.is_active? ? '起動中' : '停止中' %></td>
           </tr>
          <% end %>

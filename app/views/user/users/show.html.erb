@@ -1,0 +1,108 @@
+<div class="container px-5 px-sm-0">
+  <div class="row">
+    <div class="col-md-3">
+      <h2>プロフィール</h2>
+      <div>
+        <%= image_tag @user.get_profile_image(100,100) %>
+      </div>
+      <table>
+        <tr>
+          <th>名前</th>
+          <th><%= @user.name %></th>
+        </tr>
+        <tr>
+          <th>紹介文</th>
+          <th><%= @user.introduction %></th>
+        </tr>
+        <tr>
+          <th>プラットフォーム</th>
+          <th><%= @user.pratform %></th>
+        </tr>
+      <!--フォロー数、フォロワー数-->
+        <tr>
+          <th>follows</th>
+          <th>
+            <%= link_to user_followings_path(@user) do %>
+              <%= @user.followings.count %>
+            <%end%>
+          </th>
+        </tr>
+        <tr>
+          <th>followers</th>
+          <th>
+            <%= link_to user_followers_path(@user) do %>
+              <%= @user.followers.count %>
+            <%end%>
+          </th>
+        </tr>
+      </table>
+      <% if @user==current_user %>
+      <div class="row">
+        <%=link_to edit_user_path(@user), class: 'btn btn-outline-secondary btn-block' do %>
+        <i class="fas fa-user-cog"></i>
+        <%end%>
+      </div>
+      <%else%>
+      <div class='row' >
+        <% if current_user.following?(@user) %>
+          <%= link_to "フォローを外す", user_relationships_path(@user.id), class: "btn btn-info btn-sm", method: :delete %>
+        <%else%>
+          <%= link_to "フォローをする", user_relationships_path(@user.id), class: "btn btn-success btn-sm", method: :post %>
+        <%end%>
+        <!--チャットボタン-->
+        <% unless @user.id == current_user.id %>
+          <% if (current_user.following? @user) && (@user.following? current_user)  %>
+            <% if @isRoom == true %>
+            <p class="user-show-room"><a href="/rooms/<%= @roomId %>" class="btn btn-primary btn-lg">チャットへ</a>
+            <% else %>
+              <%= form_for @room do |f| %>
+                <%= fields_for @entry do |e| %>
+                  <%= e.hidden_field :user_id, value: @user.id %>
+                <% end %>
+                <%= f.submit "チャットを始める", class:"btn btn-primary btn-lg user-show-chat"%>
+              <% end %>
+            <% end %>
+          <% end %>
+        <% end %>
+      </div>
+      <%end%>
+      <!--ゲストユーザー用a編集ボタンを非表示-->
+      <% unless user.guest_user? %>
+      <div class="row">
+        <%= link_to "",edit_user_path(user),class: "btn btn-outline-secondary btn-block fas fa-user-cog edit_user_#{user.id}" %>
+      </div>
+      <% end %>
+
+
+  </div>
+    <div class="col-md-8 offset-md-1">
+      <h2>Comments</h2>
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+            <th>Name</th>
+            <th>Comment</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @comments.each do |comment| %>
+          <tr>
+            <td>
+              <%= link_to user_path(@user.id) do %>
+              <%= image_tag @user.get_profile_image(80,80) %>
+              <%end%>
+            </td>
+            <td>
+              <%= link_to user_path(@user.id) do %>
+                <%= @user.name %>
+              <%end%>
+            </td>
+            <td><%= comment.comment %></td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

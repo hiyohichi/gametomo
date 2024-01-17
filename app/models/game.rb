@@ -1,6 +1,7 @@
 class Game < ApplicationRecord
   has_many :comments, dependent: :destroy
-  belongs_to :genre
+  has_many :game_genres
+  has_many :genres, through: :game_genres
   
   validates :title,presence: true
   validates :introduction,presence: true, length:{maximum:400}

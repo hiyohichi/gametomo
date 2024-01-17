@@ -1,0 +1,26 @@
+<table class='table'>
+  <thead>
+    <tr>
+      <th>image</th>
+      <th>name</th>
+      <th>pratform</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% users.each do |user| %>
+      <tr>
+        <td><%= image_tag user.get_profile_image(50,50) %></td>
+        <td><%= link_to user.name, user_path(user) %></td>
+        <td><%= user.pratform %></td>
+        <td>フォロー数: <%= user.followings.count %></td>
+        <td>フォロワー数: <%= user.followers.count %></td>
+        <% if user!=current_user %>
+        <td><%= render 'relationships/btn', user: user %></td>
+        <%else%>
+        <td></td>
+        <%end%>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

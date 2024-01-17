@@ -1,4 +1,6 @@
 class Genre < ApplicationRecord
-  has_many :games, dependent: :destroy
-  has_many :users, dependent: :destroy
+  has_many :game_genres
+  has_many :games, through: :game_genres
+  has_many :user_genres
+  has_many :users, through: :user_genres
 end

@@ -3,7 +3,11 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-         
+  
+  #ジャンルの関係
+  has_many :user_genre
+  has_many :genre, through: :user_genre
+  
   has_many :comments, dependent: :destroy
   has_many :favorites,dependent: :destroy
   #フォローした、されたの関係
