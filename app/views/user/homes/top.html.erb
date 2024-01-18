@@ -3,10 +3,10 @@
     <div class="mx-auto col-11 col-sm-10 col-lg-8 col-cl-6">
       <h1>ゲムトモ</h1>
       <p>ゲーム仲間を探そう！</p>
-      
+
       <div class="btn-wrapper col-10 mx-auto">
-         <div class="row">
-          <%= link_to "ゲストログイン（閲覧用）", users_guest_sign_in_path, class: "btn btn-secondary btn-sm btn-block mb-3 sign_in", method: :post %>
+        <div class="row">
+          <%= link_to "ゲストログイン（閲覧用）", user_guest_sign_in_path, class: "btn btn-secondary btn-sm btn-block mb-3 sign_in", method: :post %>
         </div>
         <div class="row">
           <%= link_to new_user_session_path, class: 'btn btn-info btn-sm btn-block mb-3' do %>

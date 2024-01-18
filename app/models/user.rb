@@ -3,11 +3,11 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-  
+
   #ジャンルの関係
   has_many :user_genre
   has_many :genre, through: :user_genre
-  
+
   has_many :comments, dependent: :destroy
   has_many :favorites,dependent: :destroy
   #フォローした、されたの関係
@@ -19,20 +19,20 @@ class User < ApplicationRecord
   #DM機能
   has_many :messages, dependent: :destroy
   has_many :entries,  dependent: :destroy
-  
+
   validates :name,length: {in:2..20}, uniqueness: true
   validates :introduction,length: {maximum:400}
-  
+
   has_one_attached :profile_image
-  
+
   def get_profile_image(width,height)
     unless profile_image.attached?
-      file_path = Rails.root.join('app/assets/images/ghost2.jpeg')
+      file_path = Rails.root.join('app/assets/images/default.jpg')
       profile_image.attach(io: File.open(file_path), filename: 'default-image.jpg', content_type: 'image/jpeg')
     end
     profile_image.variant(resize_to_limit: [width,height]).processed
   end
-  
+
   #退会ユーザーへのログイン制限
   def active_for_authentication?
     super && (self.is_active == true)
@@ -50,7 +50,7 @@ class User < ApplicationRecord
   def following?(user)
     followings.include?(user)
   end
-  
+
   #ゲストログイン機能
   GUEST_USER_EMAIL = "guest@example.com"
 
@@ -60,9 +60,9 @@ class User < ApplicationRecord
       user.name = "guestuser"
     end
   end
-  
+
   def guest_user?
     email == GUEST_USER_EMAIL
   end
-  
+
 end

@@ -28,9 +28,7 @@
             <td><% game.genres.each do |genre|%>
                 <%= genre.pratform %>
                 <% end %></td>
-            <td><% game.comments.each do |comment| %>
-                <%= comments.count %>
-                <% end %></td>
+            <td><%= game.comments.count %></td>
             <td><span style="color:green;"><%= game.is_active? ? '起動中' : '停止中' %></td>
           </tr>
          <% end %>

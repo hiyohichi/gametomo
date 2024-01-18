@@ -31,7 +31,11 @@
         </th>
       </tr>
     </table>
-    <% if user==current_user %>
+    <!--ゲストユーザー用a編集ボタンを非表示-->
+    <% if user.guest_user? %>
+    <div class="row">
+    </div>
+    <% elsif user==current_user %>
     <div class="row">
       <%=link_to edit_user_path(user), class: 'btn btn-outline-secondary btn-block' do %>
       <i class="fas fa-user-cog"></i>
@@ -45,12 +49,12 @@
         <%= link_to "フォローをする", user_relationships_path(user.id), class: "btn btn-success btn-sm", method: :post %>
       <% end %>
       <!--DM機能-->
-        
+
     </div>
     <% end %>
     <!--ゲストユーザー用a編集ボタンを非表示-->
-    <% unless user.guest_user? %>
+    <% if user.guest_user? %>
     <div class="row">
-      <%= link_to "",edit_user_path(user),class: "btn btn-outline-secondary btn-block fas fa-user-cog edit_user_#{user.id}" %>
     </div>
     <% end %>
+  </div>

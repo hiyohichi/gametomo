@@ -1,0 +1,20 @@
+<table>
+  <tbody>
+    <% game.comments.each do |comment| %>
+    <tr>
+      <td>
+        <%= link_to user_path(comment.user) do %>
+          <%= image_tag comment.user.get_profile_image(50,50) %><br>
+          <%= comment.user.name %>
+        <%end%>
+      </td>
+      <td><%= comment.comment %></td>
+      <td>
+        <% if comment.user==current_user %>
+          <%= link_to "Destroy", game_comment_path(game, comment), method: :delete,"data-confirm"=>"本当に消しますか？", class:"btn btn-sm btn-danger",remote: true %>
+        <%end%>
+      </td>
+    </tr>
+    <%end%>
+  </tbody>
+</table>

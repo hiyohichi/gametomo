@@ -1,0 +1,4 @@
+$('#comments_counter').html("<%= j(render 'user/comments/counter', book: @comment.book) %>");
+$('#comments_index').html("<%= j(render 'usercomments/index', book: @comment.book) %>");
+<!--投稿後に入力欄を空にする-->
+$('#comment_textarea').val("");

@@ -16,7 +16,9 @@
         </tr>
         <tr>
           <th>プラットフォーム</th>
-          <th><%= @user.pratform %></th>
+          <th><% @user.genres.each do |genre| %>
+              <%= genre.pratform %>
+              <% end %></th>
         </tr>
       <!--フォロー数、フォロワー数-->
         <tr>

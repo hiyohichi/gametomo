@@ -28,6 +28,7 @@ class Admin::GamesController < ApplicationController
 
   def edit
     @game = Game.find(params[:id])
+    @genres = Genre.all
   end
 
   def update
@@ -44,6 +45,6 @@ class Admin::GamesController < ApplicationController
   private
 
   def game_params
-    params.require(:game).permit(:title, :introduction, :game_image, :is_active, genre_ids:[])
+    params.require(:game).permit(:title, :introduction, :game_image, :is_active, :pratform, genre_ids:[])
   end
 end

@@ -1,0 +1,30 @@
+<div class="container px-5 px-sm-0">
+  <div class='row'>
+    <%=render 'user/users/info',user: current_user %>
+    <div class="col-md-8 offset-md-1">
+      <h2>Games</h2>
+      <table class='table'>
+        <thead>
+          <tr>
+            <th>image</th>
+            <th>title</th>
+            <th>pratform</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+        <% @games.each do |game| %>
+          <tr>
+            <td><%= image_tag game.get_game_image(50,50) %></td>
+            <td><%= link_to game.title, game_path(game) %></td>
+            <td><% game.genres.each do |genre| %>
+                <%= genre.pratform %>
+                <% end %></td>
+            <td>コメント数: <%= game.comments.count %></td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

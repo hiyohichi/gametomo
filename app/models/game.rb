@@ -1,5 +1,7 @@
 class Game < ApplicationRecord
   has_many :comments, dependent: :destroy
+  #1週間のコメントを取得
+  has_many :week_comments, -> { where(created_at: 1.week.ago.beginning_of_day..Time.current.end_of_day) }
   has_many :game_genres
   has_many :genres, through: :game_genres
   
