@@ -16,7 +16,13 @@
               <td><%= user.id %></td>
               <td><%= link_to user.name, admin_user_path(user) %></td>
               <td><%= user.email %></td>
-              <td><%= user.user_status %></td>
+              <td>
+                <% if user.is_active %>
+                  <span class="text-success">有効</span>
+                <% else %>
+                  <span class="text-secondary">退会</span>
+                <% end %>
+              </td>
             </tr>
           <% end %>
         </table>

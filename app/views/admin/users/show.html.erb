@@ -38,13 +38,12 @@
         <% end %>
       </table>
     </div>
-  </div>
 
     <div class="col-md-8 offset-md-1">
       <h2>投稿</h2>
       <table>
         <tbody>
-          <% user.comments.each do |comment| %>
+          <% @user.comments.each do |comment| %>
           <tr>
             <td>
               <%= image_tag comment.user.get_profile_image(50,50) %><br>

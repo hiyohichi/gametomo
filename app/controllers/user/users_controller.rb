@@ -34,14 +34,17 @@ class User::UsersController < ApplicationController
 
   def edit
     @user=User.find(params[:id])
+    @genres= Genre.all
   end
 
   def update
     @user=User.find(params[:id])
+    params[:user][:genre] ? @user.genre = params[:user][:genre].join(",") : false
     if @user.update(user_params)
+      redirect_to user_path(@user)
       flash[:notice]="プロフィールを編集しました"
-      redirect_to user_path
     else
+      @genres = Genre.all
       render :edit
     end
   end
@@ -49,7 +52,7 @@ class User::UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name,:profile_image,:introduction, genre_ids[])
+    params.require(:user).permit(:name,:profile_image,:introduction, genre_ids:[])
   end
 
   def is_matching_login_user

@@ -38,40 +38,42 @@
           </th>
         </tr>
       </table>
-      <% if @user==current_user %>
-      <div class="row">
-        <%=link_to edit_user_path(@user), class: 'btn btn-outline-secondary btn-block' do %>
-        <i class="fas fa-user-cog"></i>
-        <%end%>
-      </div>
+      <% if @user.guest_user? %>
+        <div></div>
+      <% elsif @user==current_user %>
+        <div class="row">
+          <%=link_to edit_user_path(@user), class: 'btn btn-outline-secondary btn-block' do %>
+            <i class="fas fa-user-cog"></i>
+         <%end%>
+        </div>
       <%else%>
-      <div class='row' >
-        <% if current_user.following?(@user) %>
-          <%= link_to "フォローを外す", user_relationships_path(@user.id), class: "btn btn-info btn-sm", method: :delete %>
-        <%else%>
-          <%= link_to "フォローをする", user_relationships_path(@user.id), class: "btn btn-success btn-sm", method: :post %>
-        <%end%>
+        <div class='row' >
+          <% if current_user.following?(@user) %>
+            <%= link_to "フォローを外す", user_relationships_path(@user.id), class: "btn btn-info btn-sm", method: :delete %>
+          <%else%>
+            <%= link_to "フォローをする", user_relationships_path(@user.id), class: "btn btn-success btn-sm", method: :post %>
+          <%end%>
         <!--チャットボタン-->
-        <% unless @user.id == current_user.id %>
-          <% if (current_user.following? @user) && (@user.following? current_user)  %>
-            <% if @isRoom == true %>
-            <p class="user-show-room"><a href="/rooms/<%= @roomId %>" class="btn btn-primary btn-lg">チャットへ</a>
-            <% else %>
-              <%= form_for @room do |f| %>
-                <%= fields_for @entry do |e| %>
-                  <%= e.hidden_field :user_id, value: @user.id %>
+          <% unless @user.id == current_user.id %>
+            <% if (current_user.following? @user) && (@user.following? current_user)  %>
+              <% if @isRoom == true %>
+              <p class="user-show-room"><a href="/rooms/<%= @roomId %>" class="btn btn-primary btn-lg">チャットへ</a>
+              <% else %>
+                <%= form_for @room do |f| %>
+                  <%= fields_for @entry do |e| %>
+                    <%= e.hidden_field :user_id, value: @user.id %>
+                  <% end %>
+                  <%= f.submit "チャットを始める", class:"btn btn-primary btn-lg user-show-chat"%>
                 <% end %>
-                <%= f.submit "チャットを始める", class:"btn btn-primary btn-lg user-show-chat"%>
               <% end %>
             <% end %>
           <% end %>
-        <% end %>
       </div>
       <%end%>
       <!--ゲストユーザー用a編集ボタンを非表示-->
-      <% unless user.guest_user? %>
+      <% if @user.guest_user? %>
       <div class="row">
-        <%= link_to "",edit_user_path(user),class: "btn btn-outline-secondary btn-block fas fa-user-cog edit_user_#{user.id}" %>
+        <%= link_to "",edit_user_path(@user),class: "btn btn-outline-secondary btn-block fas fa-user-cog edit_user_#{@user.id}" %>
       </div>
       <% end %>
 

@@ -1,8 +1,8 @@
 class Admin::UsersController < ApplicationController
   before_action :authenticate_admin!
-  
+
   def index
-    @user = User.all
+    @users = User.all
   end
 
   def show
@@ -12,9 +12,9 @@ class Admin::UsersController < ApplicationController
   def update
     user = User.find(params[:id])
     user.update(user_params)
-    redirect_to admin_users_path(user)
+    redirect_to admin_users_path, notice: "ステータスを変更しました"
   end
-  
+
   def destroy
     @comment = Comment.find(params[:id]).user
     Comment.find(params[:id]).destroy
