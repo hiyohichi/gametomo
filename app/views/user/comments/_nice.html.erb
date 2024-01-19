@@ -1,0 +1,9 @@
+<% if comment.niced_by?(current_user) %>
+  <%= link_to comment_nices_path(comment),method: :delete, remote: true do %>
+    <i class="fas fa-thumbs-up" style="color:red;"></i><%= comment.nices.count %>
+  <% end %>
+<% else %>
+  <%= link_to comment_nices_path(comment),method: :post, remote: true do %>
+    <i class="far fa-thumbs-up" style="color:blue;"></i><%= comment.nices.count %>
+  <% end %>
+<% end %>

@@ -9,7 +9,7 @@ class User < ApplicationRecord
   has_many :genres, through: :user_genres
 
   has_many :comments, dependent: :destroy
-  has_many :favorites,dependent: :destroy
+  has_many :nices,dependent: :destroy
   #フォローした、されたの関係
   has_many :to_follow,  class_name:"Relationship", foreign_key: "follower_id", dependent: :destroy
   has_many :be_followed,class_name:"Relationship", foreign_key: "followed_id", dependent: :destroy

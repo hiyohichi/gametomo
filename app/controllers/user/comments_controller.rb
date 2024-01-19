@@ -1,23 +1,22 @@
 class User::CommentsController < ApplicationController
   before_action :authenticate_user!
-  
+
   def create
-    book=Book.find(params[:book_id])
-    @comment=current_user.book_comments.new(book_comment_params)
-    @comment.book_id=book.id
+    game=Game.find(params[:game_id])
+    @comment=current_user.comments.new(comment_params)
+    @comment.game_id=game.id
     @comment.save
     #create.js.erb
   end
 
   def destroy
-    @book=BookComment.find(params[:id]).book
-    BookComment.find(params[:id]).destroy
+    @game=Comment.find(params[:id]).game
+    Comment.find(params[:id]).destroy
     #destroy.js.erb
   end
 
   private
-  def book_comment_params
-    params.require(:book_comment).permit(:comment)
+  def comment_params
+    params.require(:comment).permit(:comment)
   end
-end
 end

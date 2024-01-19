@@ -41,6 +41,12 @@ class Admin::GamesController < ApplicationController
       render :edit
     end
   end
+  
+  def destroy
+    @comment = Comment.find(params[:id]).game
+    Comment.find(params[:id]).destroy
+    redirect_to admin_game_path(params[:ga_id])
+  end
 
   private
 

@@ -7,7 +7,7 @@ class Comment < ApplicationRecord
   #空でないか
   validates :comment,presence:true
   
-  def favorited_by?(user)
-    favorites.exists?(user_id: user.id)
+  def niced_by?(user)
+    nices.exists?(user_id: user.id)
   end
 end
