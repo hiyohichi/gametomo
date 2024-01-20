@@ -49,16 +49,12 @@
         </div>
       <%else%>
         <div class='row' >
-          <% if current_user.following?(@user) %>
-            <%= link_to "フォローを外す", user_relationships_path(@user.id), class: "btn btn-info btn-sm", method: :delete %>
-          <%else%>
-            <%= link_to "フォローをする", user_relationships_path(@user.id), class: "btn btn-success btn-sm", method: :post %>
-          <%end%>
+          <div id="relationship_btns_<%= user.id %>"><%= render 'user/relationships/btn', user: @user %></div>
         <!--チャットボタン-->
           <% unless @user.id == current_user.id %>
             <% if (current_user.following? @user) && (@user.following? current_user)  %>
               <% if @isRoom == true %>
-              <p class="user-show-room"><a href="/rooms/<%= @roomId %>" class="btn btn-primary btn-lg">チャットへ</a>
+              <p class="user-show-room"><a href="/rooms/<%= @roomId %>" class="btn btn-primary btn-lg"><i class="far fa-comments"></i></a>
               <% else %>
                 <%= form_for @room do |f| %>
                   <%= fields_for @entry do |e| %>
@@ -78,8 +74,7 @@
       <table>
         <thead>
           <tr>
-            <th></th>
-            <th>Name</th>
+            <th>Title</th>
             <th>Comment</th>
           </tr>
         </thead>
@@ -87,16 +82,13 @@
           <% @comments.each do |comment| %>
           <tr>
             <td>
-              <%= link_to user_path(@user.id) do %>
-              <%= image_tag @user.get_profile_image(80,80) %>
-              <%end%>
-            </td>
-            <td>
-              <%= link_to user_path(@user.id) do %>
-                <%= @user.name %>
+              <%= link_to game_path(comment.game.id) do %>
+                <%= image_tag comment.game.get_game_image(80,80) %><br>
+                <%= comment.game.title %>
               <%end%>
             </td>
             <td><%= comment.comment %></td>
+            <td id="nice_buttons_<%= comment.id %>"><%= render 'user/comments/nice', comment: comment %></td>
           </tr>
           <% end %>
         </tbody>

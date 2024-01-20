@@ -9,11 +9,12 @@
         <%end%>
       </td>
       <td><%= comment.comment %></td>
+      <% if comment.user==current_user %>
       <td>
-        <% if comment.user==current_user %>
-          <%= link_to "削除", game_comment_path(game, comment), method: :delete,"data-confirm"=>"本当に消しますか？", class:"btn btn-sm btn-danger",remote: true %>
-        <%end%>
+        <%= link_to "削除", game_comment_path(game, comment), method: :delete,"data-confirm"=>"本当に消しますか？", class:"btn btn-sm btn-danger",remote: true %>
       </td>
+      <% end %>
+      <td id="nice_buttons_<%= comment.id %>"><%= render 'user/comments/nice', comment: comment %></td>
     </tr>
     <%end%>
   </tbody>

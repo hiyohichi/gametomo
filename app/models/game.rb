@@ -8,6 +8,21 @@ class Game < ApplicationRecord
   validates :title,presence: true
   validates :introduction,presence: true, length:{maximum:400}
   
+  # 検索方法分岐
+  def self.looks(search, word)
+    if search == "perfect_match"
+      @game = Game.where("title LIKE?","#{word}")
+    elsif search == "forward_match"
+      @game = Game.where("title LIKE?","#{word}%")
+    elsif search == "backward_match"
+      @game = Game.where("title LIKE?","%#{word}")
+    elsif search == "partial_match"
+      @game = Game.where("title LIKE?","%#{word}%")
+    else
+      @game = Game.all
+    end
+  end
+  
   has_one_attached :game_image
   
   def get_game_image(width,height)

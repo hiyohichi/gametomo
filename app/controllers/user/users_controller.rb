@@ -10,7 +10,7 @@ class User::UsersController < ApplicationController
 
   def show
     @user=User.find(params[:id])
-    @comments=@user.comments.all
+    @comments=@user.comments.includes(:game)
     #DM機能
     @currentUserEntry=Entry.where(user_id: current_user.id)
     @userEntry=Entry.where(user_id: @user.id)

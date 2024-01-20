@@ -18,6 +18,9 @@ devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
     post "user/guest_sign_in", to: "user/sessions#guest_sign_in"
   end
 
+#検索機能
+  get "search" => "searches#search"
+
   scope module: :user do
     root to: 'homes#top'
     resources :users,only: [:index,:show,:edit,:update,:create] do
@@ -28,17 +31,21 @@ devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
 
     resources :games do
       resources :comments,only: [:create,:destroy] do
-        resource :favorites,only: [:create,:destroy]
+        resource :nices,only: [:create,:destroy]
       end
     end
-    resources :messages
-    resources :rooms
+    resources :messages, only: [:create]
+    resources :rooms   , only: [:create,:show]
 
   end
 
   namespace :admin do
     get "/" => "homes#top"
-    resources :users, only: [:index,:show,:edit,:update]
+    get "search" => "searches#search"
+    resources :users, only: [:index,:show,:edit,:update] do
+     resources :comments, only: [:destroy]
+    end
+
     resources :games, only: [:index,:new,:create,:show,:edit,:update]
     resources :genres,only: [:index,:create,:edit,:update]
 
