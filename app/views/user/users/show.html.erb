@@ -49,23 +49,15 @@
         </div>
       <%else%>
         <div class='row' >
-          <div id="relationship_btns_<%= user.id %>"><%= render 'user/relationships/btn', user: @user %></div>
+        <!--フォローボタン-->
+          <div id="relationship_btns_<%= @user.id %>"><%= render 'user/relationships/btn', user: @user %></div>
         <!--チャットボタン-->
-          <% unless @user.id == current_user.id %>
-            <% if (current_user.following? @user) && (@user.following? current_user)  %>
-              <% if @isRoom == true %>
-              <p class="user-show-room"><a href="/rooms/<%= @roomId %>" class="btn btn-primary btn-lg"><i class="far fa-comments"></i></a>
-              <% else %>
-                <%= form_for @room do |f| %>
-                  <%= fields_for @entry do |e| %>
-                    <%= e.hidden_field :user_id, value: @user.id %>
-                  <% end %>
-                  <%= f.submit "チャットを始める", class:"btn btn-primary btn-lg user-show-chat"%>
-                <% end %>
-              <% end %>
+          <% if current_user != @user && current_user.following?(@user) && @user.following?(current_user) %>
+            <%= link_to message_path(@user.id), class: "btn btn-success ml-3" do %>
+              <i class="far fa-comments"></i>
             <% end %>
           <% end %>
-      </div>
+        </div>
       <%end%>
 
   </div>

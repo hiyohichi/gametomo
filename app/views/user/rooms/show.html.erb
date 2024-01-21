@@ -8,25 +8,16 @@
   <%= link_to "ユーザー一覧に戻る", users_path %>
   <div class="row">
   <% if @messages.present? %>
-    <% @messages.each do |m| %>
-      <% @myUserId == m.user.id  %>
-      <% if m.user == current_user %>
-        <div class="col-10 offset-2">
-          <%= image_tag m.user.get_profile_image(50,50) %>
-          <div class="says"><%= m.message %></div>
-        </div>
-      <% else %>
-        <div class="col-6 offset-6">
-          <div class="other-user-says"><%= m.message %>
-            <%= image_tag m.user.get_profile_image(50,50) %>
-          </div>
-        </div>
-      <% end %>
+    <% @messages.each do |message| %>
+      <% @myUserId == message.user.id  %>
+      <div id="messages_<%= message.id %>">
+        <%= render 'user/messages/message', m: message %>
+      </div>
     <% end %>
   <% end %>
   </div>
 
-  <%= form_for @message do |f| %>
+  <%= form_with model: @message, local: false do |f| %>
     <%= f.text_field :message, placeholder: "メッセージを入力して下さい" , size: 50, class:"form-text-field" %>
     <%= f.hidden_field :room_id, value: @room.id %>
     <%= f.submit "送信",class: 'form-submit'%>

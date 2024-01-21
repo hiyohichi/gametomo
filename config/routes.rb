@@ -34,8 +34,8 @@ devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
         resource :nices,only: [:create,:destroy]
       end
     end
-    resources :messages, only: [:create]
-    resources :rooms   , only: [:create,:show]
+    resources :messages, only: [:show,:create,:destroy]
+    #resources :rooms   , only: [:create,:show]
 
   end
 

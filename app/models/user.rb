@@ -19,6 +19,7 @@ class User < ApplicationRecord
   #DM機能
   has_many :messages, dependent: :destroy
   has_many :entries,  dependent: :destroy
+  has_many :rooms,    through: :entries
 
   validates :name,length: {in:2..20}, uniqueness: true
   validates :introduction,length: {maximum:400}
