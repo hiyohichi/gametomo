@@ -10,3 +10,8 @@
   margin-bottom:1rem;
 }
 
+.fixed-form {
+  position: fixed;
+  top: 50px; /* 画面上端からの距離を調整 */
+  left: 50px; /* 画面左端からの距離を調整 */
+}

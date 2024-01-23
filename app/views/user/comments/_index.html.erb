@@ -1,21 +1,27 @@
-<table>
-  <tbody>
-    <% game.comments.each do |comment| %>
-    <tr>
-      <td>
-        <%= link_to user_path(comment.user) do %>
-          <%= image_tag comment.user.get_profile_image(50,50) %><br>
-          <%= comment.user.name %>
-        <%end%>
-      </td>
-      <td><%= comment.comment %></td>
-      <% if comment.user==current_user %>
-      <td>
-        <%= link_to "削除", game_comment_path(game, comment), method: :delete,"data-confirm"=>"本当に消しますか？", class:"btn btn-sm btn-danger",remote: true %>
-      </td>
-      <% end %>
-      <td id="nice_buttons_<%= comment.id %>"><%= render 'user/comments/nice', comment: comment %></td>
-    </tr>
-    <%end%>
-  </tbody>
-</table>
+
+<div class="container">
+  <% game.comments.each do |comment| %>
+  <div class="row">
+  <div class="col-2 text-center">
+      <%= link_to user_path(comment.user) do %>
+        <%= image_tag comment.user.get_profile_image(80,80), style: 'border-radius: 50%' %><br>
+        <h4><%= comment.user.name %></h4>
+      <%end%>
+  </div>
+
+  <div class="col-9">
+    <%= comment.created_at.strftime('%Y/%m/%d %H:%M:%S') %><br>
+    <%= comment.comment %>
+  <div>
+    <div>
+    <% if comment.user==current_user %>
+      <%= link_to "削除", game_comment_path(game, comment), method: :delete,"data-confirm"=>"本当に消しますか？", class:"btn btn-sm btn-danger",remote: true %>
+    <% end %>
+    </div>
+    <div id="nice_buttons_<%= comment.id %>"><%= render 'user/comments/nice', comment: comment %></div>
+  </div>
+  </div>
+  </div>
+  <%end%>
+</div>
+

@@ -1,60 +1,48 @@
-  <div class="col-md-3">
-    <h2>User info</h2>
-    <div>
-      <%= image_tag user.get_profile_image(100,100) %>
+<div class="col-lg-3">
+  <h2>プロフィール</h2>
+  <div class="card d-flex justify-content-center" style="width: 20rem; outline-width: 20px;">
+    <div class="text-center">
+      <%= image_tag user.get_profile_image(100,100), style: 'border-radius: 50%' %>
     </div>
-
-    <table>
-      <tr>
-        <th>name</th>
-        <th><%= user.name %></th>
-      </tr>
-      <tr>
-        <th>introduction</th>
-        <th><%= user.introduction %></th>
-      </tr>
-      <!--フォロー数、フォロワー数-->
-      <tr>
-        <th>follows</th>
-        <th>
-          <%= link_to user_followings_path(user) do %>
-            <%= user.followings.count %>
+    <div class="card-body">
+      <h5 class="card-title"><%= user.name %></h5>
+      <p class="card-text"><%= user.introduction %></p>
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">プラットフォーム
+      <p><% user.genres.each do |genre| %>
+                <%= genre.pratform %>
+                <% end %></p></li>
+      <li class="list-group-item">
+        フォロー  : <%= link_to user_followings_path(user) do %>
+                      <%= user.followings.count %>
+                    <%end%></li>
+      <li class="list-group-item">
+        フォロワー: <%= link_to user_followers_path(user) do %>
+                      <%= user.followers.count %>
+                    <%end%></li>
+    </ul>
+    <div class="card-body">
+      <% if user.guest_user? %>
+        <div></div>
+      <% elsif user==current_user %>
+        <div class="row">
+          <%=link_to edit_user_path(user), class: 'btn btn-outline-secondary btn-block' do %>
+            <i class="fas fa-user-cog"></i>
+         <%end%>
+        </div>
+      <%else%>
+        <div class='row' >
+        <!--フォローボタン-->
+          <div id="relationship_btns_<%= user.id %>"><%= render 'user/relationships/btn', user: user %></div>
+        <!--チャットボタン-->
+          <% if current_user != user && current_user.following?(user) && user.following?(current_user) %>
+            <%= link_to message_path(user.id), class: "btn btn-success ml-3" do %>
+              <i class="far fa-comments"></i>
+            <% end %>
           <% end %>
-        </th>
-      </tr>
-      <tr>
-        <th>followers</th>
-        <th>
-          <%= link_to user_followers_path(user) do %>
-            <%= user.followers.count %>
-          <% end %>
-        </th>
-      </tr>
-    </table>
-    <!--ゲストユーザー用a編集ボタンを非表示-->
-    <% if user.guest_user? %>
-    <div class="row">
+        </div>
+      <%end%>
     </div>
-    <% elsif user==current_user %>
-    <div class="row">
-      <%=link_to edit_user_path(user), class: 'btn btn-outline-secondary btn-block' do %>
-      <i class="fas fa-user-cog"></i>
-      <% end %>
-    </div>
-    <% else %>
-    <div class='row' >
-      <% if current_user.following?(user) %>
-        <%= link_to "フォローを外す", user_relationships_path(user.id), class: "btn btn-info btn-sm", method: :delete %>
-      <% else %>
-        <%= link_to "フォローをする", user_relationships_path(user.id), class: "btn btn-success btn-sm", method: :post %>
-      <% end %>
-      <!--DM機能-->
-
-    </div>
-    <% end %>
-    <!--ゲストユーザー用a編集ボタンを非表示-->
-    <% if user.guest_user? %>
-    <div class="row">
-    </div>
-    <% end %>
   </div>
+</div>

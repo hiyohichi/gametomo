@@ -16,6 +16,7 @@ class User::MessagesController < ApplicationController
     else
       # 共有チャットルームが存在しない場合、新しいチャットルームを作成
       @room = Room.new
+      @room.user_id = current_user.id
       @room.save
 
       # チャットルームに現在のユーザーと相手ユーザーを追加

@@ -1,39 +1,34 @@
 <div class="container px-5 px-sm-0">
   <div class="row">
-    <div class="col-md-3">
+    <div class="col-lg-3">
       <h2>Game</h2>
-      <div>
-        <%= image_tag @game.get_game_image(100,100) %>
-      </div>
-      <table>
-        <tr>
-          <th>タイトル</th>
-          <th><%= @game.title %></th>
-        </tr>
-        <tr>
-          <th>紹介文</th>
-          <th><%= @game.introduction %></th>
-        </tr>
-        <tr>
-          <th>プラットフォーム</th>
-          <th><% @game.genres.each do |genre| %>
-              <%= genre.pratform %>
-              <% end %></th>
-        </tr>
-        <tr>
-          <th id="comment_counter">
+      <div class="card d-flex justify-content-center" style="width: 20rem; outline-width: 20px;">
+        <div class="text-center">
+          <%= image_tag @game.get_game_image(100,100), style: 'border-radius: 50%' %>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title"><%= @game.title %></h5>
+          <p class="card-text"><%= @game.introduction %></p>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">プラットフォーム
+          <p><% @game.genres.each do |genre| %>
+                    <%= genre.pratform %>
+                    <% end %></p></li>
+          <div id="comment_counter">
             <%= render "user/comments/counter", game: @game %>
-          </th>
-        </tr>
-      </table>
+          </div>
+        </ul>
+      </div>
     </div>
+
 
     <div class="col-md-8 offset-md-1">
       <h2>投稿</h2>
       <div id="comments_index">
         <%= render "user/comments/index", game: @game %>
       </div>
-      <%= render "user/comments/form", game: @game, comment: @comment %>
+        <%= render "user/comments/form", game: @game, comment: @comment %>
     </div>
   </div>
 </div>
