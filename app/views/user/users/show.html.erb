@@ -8,7 +8,7 @@
         </div>
         <div class="card-body">
           <h5 class="card-title"><%= @user.name %></h5>
-          <p class="card-text"><%= @user.introduction %></p>
+          <p class="card-text"><%=safe_join(@user.introduction.split("\n"),tag(:br))%></p>
         </div>
         <ul class="list-group list-group-flush">
           <li class="list-group-item">プラットフォーム
@@ -67,7 +67,7 @@
                 <%= comment.game.title %>
               <%end%>
             </td>
-            <td><%= comment.comment %></td>
+            <td><%=safe_join(comment.comment.split("\n"),tag(:br))%></td>
             <td id="nice_buttons_<%= comment.id %>"><%= render 'user/comments/nice', comment: comment %></td>
           </tr>
           <% end %>

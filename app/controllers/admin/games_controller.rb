@@ -18,7 +18,7 @@ class Admin::GamesController < ApplicationController
   end
 
   def index
-    @games = Game.all
+    @games = Game.all.order(created_at: :desc)
   end
 
   def show

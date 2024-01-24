@@ -20,6 +20,6 @@ class User::GamesController < ApplicationController
   def show
     @game = Game.find(params[:id])
     @comment = Comment.new
-    @comments = @game.comments.all
+    @comments = @game.comments.all.order(created_at: :desc)
   end
 end

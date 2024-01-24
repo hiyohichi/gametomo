@@ -24,11 +24,11 @@
 
 
     <div class="col-md-8 offset-md-1">
-      <h2>投稿</h2>
+      <h2>投稿一覧</h2>
+        <%= render "user/comments/form", game: @game, comment: @comment %>
       <div id="comments_index">
         <%= render "user/comments/index", game: @game %>
       </div>
-        <%= render "user/comments/form", game: @game, comment: @comment %>
     </div>
   </div>
 </div>

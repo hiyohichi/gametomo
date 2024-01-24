@@ -4,13 +4,13 @@ class User::UsersController < ApplicationController
   before_action :is_matching_login_user, only: [:edit, :update]
 
   def index
-    @users=User.all
+    @users=User.all.order(created_at: :desc)
     @user=current_user
   end
 
   def show
     @user=User.find(params[:id])
-    @comments=@user.comments.includes(:game)
+    @comments=@user.comments.includes(:game).order(created_at: :desc)
     #DM機能
     @currentUserEntry=Entry.where(user_id: current_user.id)
     @userEntry=Entry.where(user_id: @user.id)
