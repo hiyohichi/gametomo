@@ -1,32 +1,29 @@
 <div class="container px-5 px-sm-0">
   <div class="row">
-    <div class="col-md-3">
+    <div class="col-lg-3">
       <h2>Game</h2>
-      <div>
-        <%= image_tag @game.get_game_image(100,100) %>
-      </div>
-      <table>
-        <tr>
-          <th>タイトル</th>
-          <th><%= @game.title %></th>
-        </tr>
-        <tr>
-          <th>紹介文</th>
-          <th><%= @game.introduction %></th>
-        </tr>
-        <tr>
-          <th>プラットフォーム</th>
-          <th><% @game.genres.each do |genre| %>
-              <%= genre.pratform %>
-              <% end %></th>
-        </tr>
-      </table>
-      <div class="row">
-          <%=link_to edit_admin_game_path(@game), class: 'btn btn-outline-secondary btn-block' do %>
-            <i class="fas fa-cog"></i>
-          <%end%>
+      <div class="card d-flex justify-content-center" style="width: 20rem; outline-width: 20px;">
+        <div class="text-center">
+          <%= image_tag @game.get_game_image(100,100), style: 'border-radius: 50%' %>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title"><%= @game.title %></h5>
+          <p class="card-text"><%= @game.introduction %></p>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">プラットフォーム
+          <p><% @game.genres.each do |genre| %>
+                    <%= genre.pratform %>
+                    <% end %></p></li>
+          <div>
+            <%=link_to edit_admin_game_path(@game), class: 'btn btn-outline-secondary btn-block' do %>
+              <i class="fas fa-cog"></i>
+            <%end%>
+          </div>
+        </ul>
       </div>
     </div>
+
 
     <div class="col-md-8 offset-md-1">
       <h2>投稿</h2>

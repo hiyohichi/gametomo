@@ -15,7 +15,7 @@
           <p><% @game.genres.each do |genre| %>
                     <%= genre.pratform %>
                     <% end %></p></li>
-          <div id="comment_counter">
+          <div id="comments_counter" class="m-3">
             <%= render "user/comments/counter", game: @game %>
           </div>
         </ul>

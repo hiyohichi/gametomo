@@ -1,43 +1,35 @@
 <div class="container px-5 px-sm-0">
   <div class="row">
-    <div class="col-md-3">
-      <h2>User info</h2>
-      <div>
-        <%= image_tag @user.get_profile_image(100,100) %>
-      </div>
-      <table>
-        <tr>
-          <th>name</th>
-          <th><%= @user.name %></th>
-        </tr>
-        <tr>
-          <th>introduction</th>
-          <th><%= @user.introduction %></th>
-        </tr>
-        <tr>
-          <th>follows</th>
-          <th><%= @user.followings.count %></th>
-        </tr>
-        <tr>
-          <th>followers</th>
-          <th><%= @user.followers.count %></th>
-        </tr>
-        <%= form_with model:@user,url:admin_user_path, method: :patch do |f| %>
-        <tr>
-          <td>ステータス</td>
-          <td>
+    <div class="col-lg-3">
+      <h2>プロフィール</h2>
+      <div class="card d-flex justify-content-center" style="width: 20rem; outline-width: 20px;">
+        <div class="text-center border-50">
+          <%= image_tag @user.get_profile_image(100,100), style: 'border-radius: 50%' %>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title"><%= @user.name %></h5>
+          <p class="card-text"><%=safe_join(@user.introduction.split("\n"),tag(:br))%></p>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">プラットフォーム
+          <p><% @user.genres.each do |genre| %>
+                <%= genre.pratform %>
+             <% end %></p></li>
+          <li class="list-group-item">
+            フォロー  : <%= @user.followings.count %></li>
+          <li class="list-group-item">
+            フォロワー: <%= @user.followers.count %></li>
+          <%= form_with model:@user,url:admin_user_path, method: :patch do |f| %>
+          <li class="list-group-item">
+            ステータス<br>
             <p><%= f.radio_button :is_active, :true %>有効</p>
             <p><%= f.radio_button :is_active, :false %>退会</p>
-          </td>
-        </tr>
-        <tr>
-          <td>
-          <%= f.submit "変更を保存",class: "btn btn-warning" %>
-          </td>
-        </tr>
-        <% end %>
-      </table>
+          <div><%= f.submit "変更を保存",class: "btn btn-warning" %></div>
+          <% end %></li>
+        </ul>
+      </div>
     </div>
+
 
     <div class="col-md-8 offset-md-1">
       <h2>投稿</h2>

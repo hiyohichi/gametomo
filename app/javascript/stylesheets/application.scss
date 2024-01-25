@@ -16,3 +16,51 @@
   left: 50px; /* 画面左端からの距離を調整 */
 }
 
+ .bg-img-top {
+   min-height: 603px;
+   background: url("../images/cat.jpg") no-repeat 0 0;
+   background-size: cover;
+   background-position: center;
+   background-attachment: fixed;
+}
+
+ .bg-img-message {
+   min-height: 603px;
+   background: url("../images/sakana.jpg") no-repeat 0 0;
+   background-size: cover;
+   background-position: center;
+   background-attachment: fixed;
+}
+
+.nicomoji{
+  font-family: "Nico Moji";
+}
+
+.gametomo{
+  font-family: "Nico Moji";
+  font-size: 3.4rem;
+  font-style: italic;
+  letter-spacing: .1em;
+  color: navy;
+  text-shadow: -3px 2px 0 magenta;
+}
+
+
+.top-text{
+  position: relative;
+  padding: 6px;
+  color: #fff;
+  border-radius: 10px;
+  background-image: -webkit-linear-gradient(315deg, #231557 0%, #44107a 29%, #ff1361 67%, #fff800 100%);
+  background-image: linear-gradient(-225deg, #231557 0%, #44107a 29%, #ff1361 67%, #fff800 100%);
+}
+
+.comment-box{
+    padding: 0.5em 1em;
+    margin: 2em 0;
+    color: #5d627b;
+    background: white;
+    border-top: solid 5px #5d627b;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.22);
+}
+
