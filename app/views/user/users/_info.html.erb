@@ -10,9 +10,7 @@
     </div>
     <ul class="list-group list-group-flush">
       <li class="list-group-item">プラットフォーム
-      <p><% user.genres.each do |genre| %>
-                <%= genre.pratform %>
-                <% end %></p></li>
+      <p><%= user.platform() %></p></li>
       <li class="list-group-item">
         フォロー  : <%= link_to user_followings_path(user) do %>
                       <%= user.followings.count %>

@@ -25,7 +25,7 @@ class User::MessagesController < ApplicationController
     end
 
     # チャットルームに関連付けられたメッセージを取得
-    @messages = @room.messages
+    @messages = @room.messages.order(created_at: :desc)
 
     # 新しいメッセージを作成するための空のChatオブジェクトを生成
     @message = Message.new(room_id: @room.id)

@@ -12,9 +12,7 @@
         </div>
         <ul class="list-group list-group-flush">
           <li class="list-group-item">プラットフォーム
-          <p><% @user.genres.each do |genre| %>
-                      <%= genre.pratform %>
-                    <% end %></p></li>
+          <p><%= @user.platform() %></p></li>
           <li class="list-group-item">
             フォロー  : <%= link_to user_followings_path(@user) do %>
                           <%= @user.followings.count %>
@@ -51,28 +49,32 @@
   </div>
     <div class="col-md-8 offset-md-1">
       <h2>Comments</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Title</th>
-            <th>Comment</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @comments.each do |comment| %>
-          <tr>
-            <td>
-              <%= link_to game_path(comment.game.id) do %>
-                <%= image_tag comment.game.get_game_image(80,80) %><br>
-                <%= comment.game.title %>
+      <% @comments.each do |comment| %>
+      <div class="comment-box">
+        <div class="row">
+          <div class="col-2 text-center">
+              <%= link_to game_path(comment.game) do %>
+                <%= image_tag comment.game.get_game_image(80,80), style: 'border-radius: 50%' %><br>
+                <h5><%= comment.game.title %></h5>
               <%end%>
-            </td>
-            <td><%=safe_join(comment.comment.split("\n"),tag(:br))%></td>
-            <td id="nice_buttons_<%= comment.id %>"><%= render 'user/comments/nice', comment: comment %></td>
-          </tr>
-          <% end %>
-        </tbody>
-      </table>
+          </div>
+
+          <div class="col-9">
+            <%= comment.created_at.strftime('%Y/%m/%d %H:%M:%S') %><br>
+            <!--改行できるようにした-->
+            <%= safe_join(comment.comment.split("\n"),tag(:br))%>
+            <div id="nice_buttons_<%= comment.id %>"><%= render 'user/comments/nice', comment: comment %></div>
+          </div>
+          <div class="row">
+            <div class="text-right">
+              <% if comment.user==current_user %>
+                <%= link_to "削除", game_comment_path(@user, comment), method: :delete,"data-confirm"=>"本当に消しますか？", class:"btn btn-sm btn-danger text-end m-3",remote: true %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <%end%>
     </div>
   </div>
 </div>

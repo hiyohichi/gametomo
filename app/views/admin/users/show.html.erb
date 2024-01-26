@@ -33,22 +33,29 @@
 
     <div class="col-md-8 offset-md-1">
       <h2>投稿</h2>
-      <table>
-        <tbody>
-          <% @user.comments.each do |comment| %>
-          <tr>
-            <td>
-              <%= image_tag comment.user.get_profile_image(50,50) %><br>
-              <%= comment.user.name %>
-            </td>
-            <td><%= comment.comment %></td>
-            <td>
-              <%= link_to "削除",admin_user_comment_path(@user, comment), method: :delete,"data-confirm"=>"本当に消しますか？", class:"btn btn-sm btn-danger",remote: true %>
-            </td>
-          </tr>
-          <%end%>
-        </tbody>
-      </table>
+      <% @user.comments.each do |comment| %>
+      <div class="comment-box">
+        <div class="row">
+          <div class="col-2 text-center">
+              <%= link_to admin_game_path(comment.game) do %>
+                <%= image_tag comment.game.get_game_image(80,80), style: 'border-radius: 50%' %><br>
+                <h5><%= comment.game.title %></h5>
+              <%end%>
+          </div>
+
+          <div class="col-9">
+            <%= comment.created_at.strftime('%Y/%m/%d %H:%M:%S') %><br>
+            <!--改行できるようにした-->
+            <%= safe_join(comment.comment.split("\n"),tag(:br))%>
+          </div>
+          <div class="row">
+            <div class="text-right">
+              <%= link_to "削除", admin_user_comment_path(@user, comment), method: :delete,"data-confirm"=>"本当に消しますか？", class:"btn btn-sm btn-danger text-end m-3",remote: true %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <%end%>
     </div>
   </div>
 </div>

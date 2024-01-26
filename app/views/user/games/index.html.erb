@@ -18,9 +18,7 @@
           <tr>
             <td><%= image_tag game.get_game_image(50,50) %></td>
             <td><%= link_to game.title, game_path(game) %></td>
-            <td><% game.genres.each do |genre| %>
-                <%= genre.pratform %>
-                <% end %></td>
+            <td><%= game.platform() %></td>
             <td>コメント数: <%= game.comments.count %></td>
           </tr>
         <% end %>

@@ -16,6 +16,8 @@ class User < ApplicationRecord
   #一覧画面で使う
   has_many :followings, through: :to_follow, source: :followed
   has_many :followers,  through: :be_followed, source: :follower
+  #1週間のfollowersを取得
+  has_many :week_followers, -> { where(created_at: 1.week.ago.beginning_of_day..Time.current.end_of_day) }
   #DM機能
   has_many :messages, dependent: :destroy
   has_many :entries,  dependent: :destroy
@@ -25,7 +27,7 @@ class User < ApplicationRecord
   validates :introduction,length: {maximum:400}
 
   has_one_attached :profile_image
-  
+
   # 検索方法分岐
   def self.looks(search, word)
     if search == "perfect_match"
@@ -65,6 +67,16 @@ class User < ApplicationRecord
   #フォローしているか判定
   def following?(user)
     followings.include?(user)
+  end
+
+  
+  #ジャンルを区切る
+  def platform()
+    lis = []
+    self.genres.each do |genre|
+      lis.push(genre.pratform)
+    end
+    lis.join(" / ")
   end
 
   #ゲストログイン機能

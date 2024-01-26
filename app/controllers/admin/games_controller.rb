@@ -23,7 +23,7 @@ class Admin::GamesController < ApplicationController
 
   def show
     @game = Game.find(params[:id])
-    @comments = Comment.all
+    @comments = @game.comments.all.order(created_at: :desc)
   end
 
   def edit
@@ -41,11 +41,11 @@ class Admin::GamesController < ApplicationController
       render :edit
     end
   end
-  
+
   def destroy
     @comment = Comment.find(params[:id]).game
     Comment.find(params[:id]).destroy
-    redirect_to admin_game_path(params[:ga_id])
+    redirect_to admin_game_path(params[:game_id])
   end
 
   private

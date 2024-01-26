@@ -4,7 +4,13 @@ class User::UsersController < ApplicationController
   before_action :is_matching_login_user, only: [:edit, :update]
 
   def index
-    @users=User.all.order(created_at: :desc)
+    #1週間のフォロワーが多い順に並び替える
+    to=Time.current.at_end_of_day
+    from=(to - 6.day).at_beginning_of_day
+    @users=User.includes(:followers).
+      sort_by {|user|
+        user.followers.where(created_at: from...to).count
+      }.reverse
     @user=current_user
   end
 
@@ -39,7 +45,7 @@ class User::UsersController < ApplicationController
 
   def update
     @user=User.find(params[:id])
-    params[:user][:genre] ? @user.genre = params[:user][:genre].join(",") : false
+    #params[:user][:genre] ? @user.genre = params[:user][:genre].join(",") : false
     if @user.update(user_params)
       redirect_to user_path(@user)
       flash[:notice]="プロフィールを編集しました"

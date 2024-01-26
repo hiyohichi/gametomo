@@ -12,11 +12,9 @@
       <tr>
         <td><%= image_tag user.get_profile_image(50,50) %></td>
         <td><%= link_to user.name, user_path(user) %></td>
-        <td><% user.genres.each do |genre| %>
-            <%= genre.pratform %>
-            <% end %></th>
-        <td>フォロー数: <%= user.followings.count %></td>
-        <td>フォロワー数: <%= user.followers.count %></td>
+        <td><%= user.platform() %></td>
+        <td>フォロー : <%= user.followings.count %></td>
+        <td>フォロワー : <%= user.followers.count %></td>
         <% if user!=current_user %>
         <td id="relationship_btns_<%= user.id %>"><%= render 'user/relationships/btn', user: user %></td>
         <%else%>

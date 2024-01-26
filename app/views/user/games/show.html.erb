@@ -12,9 +12,7 @@
         </div>
         <ul class="list-group list-group-flush">
           <li class="list-group-item">プラットフォーム
-          <p><% @game.genres.each do |genre| %>
-                    <%= genre.pratform %>
-                    <% end %></p></li>
+          <p><%= @game.platform() %></p></li>
           <div id="comments_counter" class="m-3">
             <%= render "user/comments/counter", game: @game %>
           </div>
@@ -27,7 +25,7 @@
       <h2>投稿一覧</h2>
         <%= render "user/comments/form", game: @game, comment: @comment %>
       <div id="comments_index">
-        <%= render "user/comments/index", game: @game %>
+        <%= render "user/comments/index", game: @game, comments: @comments %>
       </div>
     </div>
   </div>

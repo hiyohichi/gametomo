@@ -1,24 +1,25 @@
 <div class="bg-img-message">
   <div class="col-md-8 offset-md-2">
   <h2 id="room" data-room="<%= @room.id %>" data-user="<%= current_user.id %>" class="text-light"><%= @user.name %> さんとのチャットルーム</h2>
-
-  <div class="message col-md-12">
-    <% @messages.each do |message| %>
-      <% if message.user_id == current_user.id %>
-        <%= render "user/messages/message", message: message %>
-      <% else %>
-        <div class="right-container d-flex justify-content-end p-2">
-          <p class=ml-1 style="text-align: right;"><span style="background-color: white; padding: 5px; border-radius: 10px;"><%= message.message %></span></p>
-          <%= image_tag @user.get_profile_image(50,50), style: 'border-radius: 50%' %>
-        </div>
+    <div class="text-right">
+      <%= form_with model: @message, data: {remote: true} do |f| %>
+        <%= f.text_field :message, class: "col-10" %>
+        <%= f.submit "送信", class: "btn btn-light btn-sm" %>
+        <%= f.hidden_field :room_id %>
       <% end %>
-    <% end %>
-  </div>
+    </div>
+    <div class="message col-md-12">
+      <% @messages.each do |message| %>
+        <% if message.user_id == current_user.id %>
+          <%= render "user/messages/message", message: message %>
+        <% else %>
+          <div class="right-container d-flex justify-content-end p-2">
+            <p class=ml-1 style="text-align: right;"><span style="background-color: white; padding: 5px; border-radius: 10px;"><%= message.message %></span></p>
+            <%= image_tag @user.get_profile_image(50,50), style: 'border-radius: 50%' %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
 
-  <%= form_with model: @message, data: {remote: true} do |f| %>
-    <%= f.text_field :message %>
-    <%= f.submit "送信", class: "btn btn-dark btn-sm" %>
-    <%= f.hidden_field :room_id %>
-  <% end %>
   </div>
 </div>

@@ -24,7 +24,7 @@
         <tbody>
           <% @games.each do |game| %>
           <tr>
-            <td><%= image_tag game.get_game_image(80,80) %></td>
+            <td><%= image_tag game.get_game_image(50,50) %></td>
             <td><%= link_to game.title,admin_game_path(game.id) %></td>
             <td><% game.genres.each do |genre|%>
                 <%= genre.pratform %>

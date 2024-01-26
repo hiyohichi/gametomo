@@ -1,4 +1,4 @@
 $('#comments_counter').html("<%= j(render 'user/comments/counter', game: @comment.game) %>");
-$('#comments_index').html("<%= j(render 'user/comments/index', game: @comment.game) %>");
+$('#comments_index').html("<%= j(render 'user/comments/index', game: @comment.game, comments: @comments) %>");
 <!--投稿後に入力欄を空にする-->
 $('#comment_textarea').val("");

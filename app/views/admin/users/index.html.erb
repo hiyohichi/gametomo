@@ -1,32 +1,35 @@
 <div class="container">
   <div class="row">
     <div class="col">
-      <h4 class="m-3">会員一覧</h4>
-      <%= render 'layouts/search' %>
-        <table class="table table-hover">
-          <thead>
-            <tr class="table-secondary">
-              <th>会員ID</th>
-              <th>氏名</ht>
-              <th>メールアドレス</th>
-              <th>ステータス</th>
-            </tr>
-          </thead>
-          <% @users.each do |user| %>
-            <tr>
-              <td><%= user.id %></td>
-              <td><%= link_to user.name, admin_user_path(user),data: {"turbolinks"=>false} %></td>
-              <td><%= user.email %></td>
-              <td>
-                <% if user.is_active %>
-                  <span class="text-success">有効</span>
-                <% else %>
-                  <span class="text-secondary">退会</span>
-                <% end %>
-              </td>
-            </tr>
-          <% end %>
-        </table>
+      <h4 class="m-3">ユーザー一覧</h4>
     </div>
+      <%= render 'layouts/search' %>
+  </div>
+
+  <div class="row">
+    <table class="table table-hover">
+      <thead>
+        <tr class="table-secondary">
+          <th>ID</th>
+          <th>氏名</ht>
+          <th>メールアドレス</th>
+          <th>ステータス</th>
+        </tr>
+      </thead>
+      <% @users.each do |user| %>
+        <tr>
+          <td><%= user.id %></td>
+          <td><%= link_to user.name, admin_user_path(user),data: {"turbolinks"=>false} %></td>
+          <td><%= user.email %></td>
+          <td>
+            <% if user.is_active %>
+              <span class="text-success">有効</span>
+            <% else %>
+              <span class="text-secondary">退会</span>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
   </div>
 </div>
