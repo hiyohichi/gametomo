@@ -7,6 +7,7 @@ class Admin::UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @comments = @user.comments.all.order(created_at: :desc)
   end
 
   def update
