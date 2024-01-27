@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  before_create :change_introduction
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -27,6 +29,12 @@ class User < ApplicationRecord
   validates :introduction,length: {maximum:400}
 
   has_one_attached :profile_image
+  
+  def change_introduction
+    if self.introduction.blank?
+       self.introduction = "紹介文を記入"
+    end
+  end
 
   # 検索方法分岐
   def self.looks(search, word)

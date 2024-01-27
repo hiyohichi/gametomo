@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_01_24_074254) do
+ActiveRecord::Schema.define(version: 2024_01_23_105523) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -137,7 +137,7 @@ ActiveRecord::Schema.define(version: 2024_01_24_074254) do
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
     t.string "name", null: false
-    t.text "introduction", default: "紹介文を記入"
+    t.text "introduction"
     t.boolean "is_active", default: true, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
