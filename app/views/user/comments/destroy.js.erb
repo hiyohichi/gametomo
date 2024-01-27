@@ -1,2 +1,2 @@
 $('#comments_counter').html("<%= j(render 'user/comments/counter', game: @game) %>");
-$('#comments_index').html("<%= j(render 'user/comments/index', game: @game) %>");
+$('#comments_index').html("<%= j(render 'user/comments/index', game: @game, comments: @comments) %>");

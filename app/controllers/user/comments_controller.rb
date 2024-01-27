@@ -6,12 +6,14 @@ class User::CommentsController < ApplicationController
     @comment=current_user.comments.new(comment_params)
     @comment.game_id=game.id
     @comment.save
+    @comments=game.comments.all.order(created_at: :desc)
     #create.js.erb
   end
 
   def destroy
     @game=Comment.find(params[:id]).game
     Comment.find(params[:id]).destroy
+    @comments = @game.comments.all.order(created_at: :desc)
     #destroy.js.erb
   end
 
