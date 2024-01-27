@@ -48,7 +48,7 @@
 
   </div>
     <div class="col-md-8 offset-md-1">
-      <h2>Comments</h2>
+      <h2>投稿一覧</h2>
       <% @comments.each do |comment| %>
       <div class="comment-box">
         <div class="row">
@@ -64,13 +64,6 @@
             <!--改行できるようにした-->
             <%= safe_join(comment.comment.split("\n"),tag(:br))%>
             <div id="nice_buttons_<%= comment.id %>"><%= render 'user/comments/nice', comment: comment %></div>
-          </div>
-          <div class="row">
-            <div class="text-right">
-              <% if comment.user==current_user %>
-                <%= link_to "削除", game_comment_path(@user, comment), method: :delete,"data-confirm"=>"本当に消しますか？", class:"btn btn-sm btn-danger text-end m-3",remote: true %>
-              <% end %>
-            </div>
           </div>
         </div>
       </div>
