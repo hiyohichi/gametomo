@@ -1,5 +1,6 @@
 class User::CommentsController < ApplicationController
   before_action :authenticate_user!
+  before_action :is_matching_login_user, only: [:destroy]
 
   def create
     game=Game.find(params[:game_id])
@@ -20,5 +21,13 @@ class User::CommentsController < ApplicationController
   private
   def comment_params
     params.require(:comment).permit(:comment, :user_id, :game_id, :parent_id)
+  end
+
+  def is_matching_login_user
+    comment = Comment.find(params[:id])
+    unless comment.user_id == current_user.id
+      redirect_to current_user
+      flash[:notice]="不正が検知されました"
+    end
   end
 end
