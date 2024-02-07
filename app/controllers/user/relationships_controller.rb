@@ -3,7 +3,10 @@ class User::RelationshipsController < ApplicationController
 
   def create
     @user = User.find(params[:user_id])
-    current_user.follow(@user.id)
+    #対象のユーザーに既にフォロー済みかチェックする
+    unless current_user.following?(@user)
+      current_user.follow(@user.id)
+    end
     redirect_to request.referer
   end
 
