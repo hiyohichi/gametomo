@@ -39,16 +39,13 @@ class User::UsersController < ApplicationController
   end
 
   def edit
-    @user=User.find(params[:id])
     @genres= Genre.all
   end
 
   def update
-    @user=User.find(params[:id])
-    #params[:user][:genre] ? @user.genre = params[:user][:genre].join(",") : false
-    if @user.update(user_params)
-      redirect_to user_path(@user)
-      flash[:notice]="プロフィールを編集しました"
+    user=User.find(params[:id])
+    if user.update(user_params)
+      redirect_to user_path(user), notice: "プロフィールを編集しました"
     else
       @genres = Genre.all
       render :edit
@@ -74,4 +71,5 @@ class User::UsersController < ApplicationController
       redirect_to user_path(current_user) , notice: "ゲストユーザーはプロフィール編集画面へ遷移できません。"
     end
   end
+
 end
