@@ -27,25 +27,26 @@
                        aria-controls="navbarNavDropdown" aria-expanded="true" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
-          <div class="navbar-collapse collapse " id="navbarNavDropdown" >
+          <div class="collapse navbar-collapse ml-auto" id="navbarNavDropdown" >
             <ul class="navbar-nav ml-auto">
+            <!--ログイン後-->
             <% if user_signed_in? %>
-              <li>
+              <li class="ml-auto">
                 <%= link_to user_path(current_user.id), class: 'nav-link text-light' do %>
                   <i class="fas fa-user"></i>Myself
                 <% end %>
               </li>
-              <li>
+              <li class="ml-auto">
                 <%= link_to users_path, class: 'nav-link text-light' do %>
                   <i class="fas fa-users"></i>Users
                 <% end %>
               </li>
-              <li>
+              <li class="ml-auto">
                 <%= link_to games_path, class: 'nav-link text-light' do %>
                   <i class="fa-solid fa-gamepad"></i>Games
                 <% end %>
               </li>
-              <li>
+              <li class="ml-auto">
                 <%= link_to destroy_user_session_path,method: :delete, class: 'nav-link text-light' do %>
                   <i class="fas fa-sign-out-alt"></i>Log out
                 <% end %>
@@ -53,39 +54,40 @@
 
             <!--管理者ログイン後-->
             <% elsif admin_signed_in? %>
-              <li>
+              <li class="ml-auto">
                 <%= link_to admin_games_path, class:"nav-link text-light" do %>
                   <i class="fa-solid fa-gamepad"></i>Games
                 <% end %>
               </li>
-              <li>
+              <li class="ml-auto">
                 <%=link_to admin_users_path, class: 'nav-link text-light' do %>
                   <i class="fas fa-users"></i>Users
                 <% end %>
               </li>
-              <li>
+              <li class="ml-auto">
                 <%= link_to admin_genres_path, class:"nav-link text-light" do %>
                   <i class="fa-solid fa-layer-group"></i>Pratform
                 <% end %>
               </li>
-              <li>
+              <li class="ml-auto">
                 <%= link_to destroy_admin_session_path, method: :delete, class:"nav-link text-light" do %>
                   <i class="fa-solid fa-sign-out-alt"></i>Log out
                 <% end %>
               </li>
 
+            <!--ログイン前-->
             <% else %>
-              <li>
+              <li class="ml-auto">
                 <%= link_to root_path, class: 'nav-link text-light' do %>
                 <i class="fas fa-home"></i>Home
                 <% end %>
               </li>
-              <li>
+              <li class="ml-auto">
                 <%= link_to new_user_registration_path, class: 'nav-link text-light' do %>
                 <i class="fas fa-user-plus"></i>Sign up
                 <% end %>
               </li>
-              <li>
+              <li class="ml-auto">
                 <%= link_to new_user_session_path, class: 'nav-link text-light' do %>
                 <i class="fas fa-sign-in-alt"></i>Log in
                 <% end %>
