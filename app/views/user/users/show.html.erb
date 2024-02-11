@@ -1,4 +1,4 @@
-<div class="container px-5 px-sm-0">
+<div class="container px-sm-0">
   <div class="row">
     <div class="col-lg-3">
       <h2>プロフィール</h2>
@@ -52,9 +52,9 @@
       <% @comments.each do |comment| %>
       <div class="comment-box">
         <div class="row">
-          <div class="col-2 text-center">
+          <div class="col-3 text-center">
               <%= link_to game_path(comment.game) do %>
-                <%= image_tag comment.game.get_game_image(80,80), style: 'border-radius: 50%' %><br>
+                <%= image_tag comment.game.get_game_image(70,70), style: 'border-radius: 50%' %><br>
                 <h5><%= comment.game.title %></h5>
               <%end%>
           </div>

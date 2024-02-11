@@ -1,4 +1,4 @@
-<div class="container px-5 px-sm-0">
+<div class="container px-sm-0">
   <div class="row">
     <div class="col-lg-3">
       <h2>プロフィール</h2>
@@ -36,22 +36,18 @@
       <% @comments.each do |comment| %>
       <div class="comment-box">
         <div class="row">
-          <div class="col-2 text-center">
+          <div class="col-3 text-center">
               <%= link_to admin_game_path(comment.game) do %>
-                <%= image_tag comment.game.get_game_image(80,80), style: 'border-radius: 50%' %><br>
+                <%= image_tag comment.game.get_game_image(70,70), style: 'border-radius: 50%' %><br>
                 <h5><%= comment.game.title %></h5>
               <%end%>
+              <%= link_to "削除", admin_user_comment_path(@user, comment), method: :delete,"data-confirm"=>"本当に消しますか？", class:"btn btn-sm btn-danger text-end m-2",remote: true %>
           </div>
 
           <div class="col-9">
             <%= comment.created_at.strftime('%Y/%m/%d %H:%M:%S') %><br>
             <!--改行できるようにした-->
             <%= safe_join(comment.comment.split("\n"),tag(:br))%>
-          </div>
-          <div class="row">
-            <div class="text-right">
-              <%= link_to "削除", admin_user_comment_path(@user, comment), method: :delete,"data-confirm"=>"本当に消しますか？", class:"btn btn-sm btn-danger text-end m-3",remote: true %>
-            </div>
           </div>
         </div>
       </div>

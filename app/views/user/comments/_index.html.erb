@@ -1,11 +1,14 @@
 <% comments.each do |comment| %>
 <div class="comment-box">
   <div class="row">
-    <div class="col-2 text-center">
+    <div class="col-3 text-center">
         <%= link_to user_path(comment.user) do %>
-          <%= image_tag comment.user.get_profile_image(80,80), style: 'border-radius: 50%' %><br>
+          <%= image_tag comment.user.get_profile_image(70,70), style: 'border-radius: 50%' %><br>
           <h4><%= comment.user.name %></h4>
         <%end%>
+        <% if comment.user==current_user %>
+          <%= link_to "削除", game_comment_path(game, comment), method: :delete,"data-confirm"=>"本当に消しますか？", class:"btn btn-sm btn-danger text-end m-3",remote: true %>
+        <% end %>
     </div>
 
     <div class="col-9">
@@ -13,13 +16,6 @@
       <!--改行できるようにした-->
       <%= safe_join(comment.comment.split("\n"),tag(:br))%>
       <div id="nice_buttons_<%= comment.id %>"><%= render 'user/comments/nice', comment: comment %></div>
-    </div>
-    <div class="row">
-      <div class="text-right">
-      <% if comment.user==current_user %>
-        <%= link_to "削除", game_comment_path(game, comment), method: :delete,"data-confirm"=>"本当に消しますか？", class:"btn btn-sm btn-danger text-end m-3",remote: true %>
-      <% end %>
-      </div>
     </div>
   </div>
 </div>
