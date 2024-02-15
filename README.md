@@ -24,9 +24,11 @@
 - 情報共有
 ​
 ## 設計書
+- ER図
+  - https://app.diagrams.net/#G1K9z2oLijz86sFC7j8YOxrKftBhFTYW6T
 ​
 ## 開発環境
-- OS：Linux(CentOS)
+- OS：Linux(AmazonLinux2)
 - 言語：HTML,CSS,JavaScript,Ruby,SQL
 - フレームワーク：Ruby on Rails
 - JSライブラリ：jQuery
